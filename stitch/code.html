@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Brogence ● | Bioluminescent Intelligence</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700;900&amp;family=Geist+Mono:wght@100;300;400;700&amp;family=Inter:wght@300;400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "primary-fixed-dim": "#e0b6ff",
+                      "on-tertiary-fixed-variant": "#553d64",
+                      "on-tertiary-container": "#dcbdec",
+                      "on-tertiary-fixed": "#271236",
+                      "on-primary-container": "#e1b8ff",
+                      "surface-container-highest": "#353434",
+                      "primary-container": "#7824b8",
+                      "on-secondary-fixed": "#002021",
+                      "surface-variant": "#353434",
+                      "on-error-container": "#ffdad6",
+                      "primary-fixed": "#f2daff",
+                      "surface": "#141313",
+                      "on-secondary": "#003739",
+                      "secondary-container": "#00f4fe",
+                      "on-secondary-container": "#006c71",
+                      "inverse-surface": "#e5e2e1",
+                      "on-surface-variant": "#cbc3d9",
+                      "on-surface": "#e5e2e1",
+                      "on-primary": "#4c007d",
+                      "error-container": "#93000a",
+                      "error": "#ffb4ab",
+                      "surface-container-low": "#1c1b1b",
+                      "surface-container-lowest": "#0e0e0e",
+                      "inverse-on-surface": "#313030",
+                      "outline": "#948da2",
+                      "secondary": "#e6feff",
+                      "background": "#141313",
+                      "on-secondary-fixed-variant": "#004f53",
+                      "primary": "#e0b6ff",
+                      "secondary-fixed-dim": "#00dce5",
+                      "outline-variant": "#494456",
+                      "tertiary-fixed": "#f4daff",
+                      "on-primary-fixed-variant": "#6a0baa",
+                      "inverse-primary": "#8433c4",
+                      "tertiary": "#dabcea",
+                      "secondary-fixed": "#63f7ff",
+                      "on-error": "#690005",
+                      "on-background": "#e5e2e1",
+                      "on-tertiary": "#3e274c",
+                      "surface-bright": "#3a3939",
+                      "tertiary-container": "#634a72",
+                      "on-primary-fixed": "#2e004e",
+                      "surface-tint": "#e0b6ff",
+                      "tertiary-fixed-dim": "#dabcea",
+                      "surface-container-high": "#2a2a2a",
+                      "surface-dim": "#141313",
+                      "surface-container": "#201f1f"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0px",
+                      "lg": "0px",
+                      "xl": "0px",
+                      "full": "9999px"
+              },
+              "fontFamily": {
+                      "headline": ["Space Grotesk"],
+                      "body": ["Inter"],
+                      "label": ["Geist Mono"]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        body {
+            background-color: #0e0e0e;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3ExternalIcon %3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            background-blend-mode: overlay;
+        }
+        .bioluminescent-bloom {
+            background: radial-gradient(circle at center, rgba(120, 36, 184, 0.15) 0%, rgba(14, 14, 14, 0) 70%);
+        }
+        .glow-border-top {
+            border-top: 1px solid rgba(224, 182, 255, 0.3);
+        }
+        .glow-border-left {
+            border-left: 4px solid #63f7ff;
+        }
+        .glass-panel {
+            backdrop-filter: blur(20px);
+            background: rgba(42, 42, 42, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        .glass-panel::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='grain' baseFrequency='0.8'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+        .status-pulse {
+            width: 8px;
+            height: 8px;
+            background: #00f4fe;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #00f4fe;
+            animation: pulse 2s infinite ease-in-out;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.5); opacity: 0.5; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+    </style>
+</head>
+<body class="text-on-background font-body selection:bg-primary-container selection:text-white">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 border-b border-purple-500/10 bg-neutral-950/80 backdrop-blur-xl shadow-[0_-10px_40px_rgba(120,36,184,0.1)] flex justify-between items-center px-6 py-4 max-w-full">
+<div class="text-2xl font-black tracking-tighter text-purple-300 italic font-headline">Brogence ●</div>
+<div class="hidden md:flex gap-8 items-center">
+<a class="text-purple-300 border-b-2 border-purple-400 pb-1 font-['Space_Grotesk'] uppercase tracking-tighter font-bold" href="#">Services</a>
+<a class="text-neutral-500 font-['Geist_Mono'] hover:text-cyan-400 transition-colors duration-100 uppercase tracking-widest text-xs" href="#">Founders</a>
+<a class="text-neutral-500 font-['Geist_Mono'] hover:text-cyan-400 transition-colors duration-100 uppercase tracking-widest text-xs" href="#">Contact</a>
+</div>
+<button class="bg-primary-container text-on-primary-container font-headline uppercase tracking-tighter font-bold px-6 py-2 scale-95 active:duration-75 hover:bg-primary transition-all">
+            Book Audit
+        </button>
+</nav>
+<main class="relative pt-32 overflow-hidden">
+<!-- Background Blooms -->
+<div class="absolute top-0 right-0 w-[800px] h-[800px] bioluminescent-bloom pointer-events-none -translate-y-1/2 translate-x-1/4"></div>
+<div class="absolute bottom-0 left-0 w-[600px] h-[600px] bioluminescent-bloom pointer-events-none opacity-50 translate-y-1/4 -translate-x-1/4"></div>
+<!-- Hero Section -->
+<section class="max-w-7xl mx-auto px-6 mb-32 relative">
+<div class="w-full md:w-3/4">
+<div class="flex items-center gap-3 mb-8">
+<div class="status-pulse"></div>
+<span class="font-label text-xs tracking-[0.3em] uppercase text-secondary">System.Status: Active</span>
+</div>
+<h1 class="text-6xl md:text-8xl font-black font-headline tracking-tighter leading-[0.9] mb-12">
+                    WE BUILD SYSTEMS THAT TURN <span class="text-primary italic">DEAD TRAFFIC</span> INTO REVENUE.
+                </h1>
+<div class="flex flex-col md:flex-row gap-6 items-start">
+<button class="group relative px-10 py-5 bg-primary text-on-primary font-headline font-black text-xl uppercase tracking-tighter overflow-hidden">
+<span class="relative z-10">Book Your Free AI Audit</span>
+<div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+<div class="absolute -inset-1 bg-primary blur-xl opacity-20 group-hover:opacity-40 transition-opacity"></div>
+</button>
+<div class="flex flex-col font-label text-xs tracking-widest text-neutral-500 max-w-[200px]">
+<span>CORE PROTOCOL V.4.0.1</span>
+<span>LATENCY: 12MS</span>
+<span>AUTHORITY: HIGH-LEVEL</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Services Section: Asymmetrical Authority -->
+<section class="max-w-7xl mx-auto px-6 py-24 border-t border-white/5">
+<div class="flex flex-col lg:flex-row gap-8 items-stretch">
+<!-- Large Dominant Panel -->
+<div class="lg:w-3/5 glass-panel p-12 glow-border-top min-h-[600px] flex flex-col justify-between">
+<div>
+<div class="text-secondary font-label text-sm tracking-[0.5em] mb-4 uppercase">Protocol 01</div>
+<h2 class="text-5xl font-headline font-bold uppercase tracking-tighter mb-8 leading-none">Your 24/7<br/>Digital Staff</h2>
+<p class="text-neutral-400 font-body text-lg leading-relaxed max-w-md">
+                            Replace manual operations with autonomous neural networks. Our agents handle leads, support, and scheduling without human intervention.
+                        </p>
+</div>
+<div class="relative w-full h-48 mt-12 bg-surface-container-lowest overflow-hidden">
+<!-- Complex Schematic Mockup -->
+<div class="absolute inset-0 flex items-center justify-center opacity-40">
+<img class="w-full h-full object-cover" data-alt="high-tech neural network architectural schematic with glowing purple nodes and interconnecting cyan pathways on a dark textured background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrqsMJKn3Xyg-xgce8P4N6mbOGtqCUvlZVoPgXoaxsR9gN2baaRWz0ds0CWEb5NI9Q9e5gnomYNP_ncmhXCx2wGpps4CcqJ6vORWbBG5mA5G1UcvuA9fGvgpEDAN11BJ3csYY3J6AjcVHNdZB6UsH0D0CcZs01W-cf_S7nM6PUKPWPROz3jcAMrXcLYtZaYGAzj7nobN7Vm_tYOe-8yx3Ab6PrP_Vwpu0oW_yo_arzUsksD9duOfHEXBF1sQlkCq1H1NPUb0sqLw"/>
+</div>
+<div class="absolute bottom-4 left-4 font-label text-[10px] text-primary/50">DEEP_LEARNING_MATRIX.EXE</div>
+</div>
+</div>
+<!-- Interlocking Right Panels -->
+<div class="lg:w-2/5 flex flex-col gap-8">
+<div class="glass-panel p-8 glow-border-top h-1/2">
+<div class="text-secondary font-label text-xs tracking-[0.4em] mb-4 uppercase">Protocol 02</div>
+<h3 class="text-2xl font-headline font-bold uppercase mb-4 tracking-tight">Conversational Intelligence</h3>
+<p class="text-neutral-400 text-sm font-body">NLP-driven interaction nodes that replicate elite sales psychology in real-time chats.</p>
+<div class="mt-8 flex justify-end">
+<span class="material-symbols-outlined text-primary text-4xl" data-icon="hub">hub</span>
+</div>
+</div>
+<div class="glass-panel p-8 glow-border-top h-1/2 bg-surface-container-high/40">
+<div class="text-secondary font-label text-xs tracking-[0.4em] mb-4 uppercase">Protocol 03</div>
+<h3 class="text-2xl font-headline font-bold uppercase mb-4 tracking-tight">High-Converting Storefronts</h3>
+<p class="text-neutral-400 text-sm font-body">Hyper-optimized landing structures engineered for maximum psychographic resonance.</p>
+<div class="mt-8 flex justify-end">
+<span class="material-symbols-outlined text-secondary text-4xl" data-icon="terminal" data-weight="fill" style="font-variation-settings: 'FILL' 1;">terminal</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Architects Section: Textured Dossiers -->
+<section class="bg-surface-container-lowest py-32 relative">
+<div class="max-w-7xl mx-auto px-6">
+<div class="mb-20">
+<h2 class="text-4xl font-headline font-black uppercase tracking-tighter italic">Systems Architects</h2>
+<div class="w-24 h-1 bg-primary mt-4"></div>
+</div>
+<div class="grid md:grid-cols-3 gap-8">
+<!-- Danish Rashid -->
+<div class="glass-panel group">
+<div class="h-80 overflow-hidden bg-neutral-900 grayscale hover:grayscale-0 transition-all duration-500">
+<img class="w-full h-full object-cover" data-alt="professional portrait of a tech founder with sharp features against a dark industrial background with purple backlighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCoNW0ioeMim_9gFmer2DS4mchts-Y3EJZaW669La1d2ziVoY343QSNT2f0D12Esq84xFeTRmoa9ruKehraf4Fm8xKqWAjrj16aintQYCBmdzXMjPb4f_hS7Yokwwf5LkqQvGQzhN136ZWDYVuXCRt4zCuRQC8S3Q-NFiMYctJOVHOntmgnTWZq0-QS3xL3FBa4ooGy9adr4qxigjdTnwkQ3SwlKpmGnyGyIWTxy_l29pOao6etUT2SixDpK_OV7BqATZE9l7JB1g"/>
+</div>
+<div class="p-8 relative">
+<div class="absolute top-0 right-8 -translate-y-1/2 bg-surface p-2 border border-primary/20 font-label text-[10px] text-primary">
+                                ID: IITM-DR-09
+                            </div>
+<h4 class="text-2xl font-headline font-bold uppercase mb-1">Danish Rashid</h4>
+<div class="font-label text-primary text-xs tracking-widest mb-6 uppercase">Lead Systems Architect // IIT Madras</div>
+<p class="text-neutral-500 text-xs font-label leading-relaxed">
+                                SPECIALIZATION: NEURAL TOPOLOGY OPTIMIZATION. EXPERT IN CONVERTING RAW DATA INTO ACTIONABLE SYSTEM LOGIC.
+                            </p>
+</div>
+</div>
+<!-- Danish Bajwa -->
+<div class="glass-panel group border-l-4 border-secondary/30">
+<div class="h-80 overflow-hidden bg-neutral-900 grayscale hover:grayscale-0 transition-all duration-500">
+<img class="w-full h-full object-cover" data-alt="portrait of a security engineer in a high-tech studio with neon blue accent lighting and digital overlays" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3HrqGLfPzN5RWxWhxKHL3x90lpDmNyThDztqsJt2ApHJnnbYyN6DAXP8b-ko6ZNw2OycmwoDD31pyesBbeRQeYT1jqjokkpjOcVXGATPAZM5xYD4gvohh2uiaoB3ijSlEDfLlYISUxsQqGeEreC8i3f7SfgWDcEC4B10DK-bZ8wvnm7v2Zt_GDKDXaDIW2pm-hEpT3NvXoAHJhGKzHsv9j-JGISpMTgX7UawQz1OxdDXZzR1EHXRJ56ulF9AF-ZqB25wejiFOFQ"/>
+</div>
+<div class="p-8 relative">
+<div class="absolute top-0 right-8 -translate-y-1/2 bg-surface p-2 border border-secondary/20 font-label text-[10px] text-secondary">
+                                ID: SEC-DB-88
+                            </div>
+<h4 class="text-2xl font-headline font-bold uppercase mb-1">Danish Bajwa</h4>
+<div class="font-label text-secondary text-xs tracking-widest mb-6 uppercase">Security &amp; Logic Engineer</div>
+<p class="text-neutral-500 text-xs font-label leading-relaxed">
+                                SPECIALIZATION: CYBERNETIC DEFENSE &amp; SCALABILITY. ENSURING SYSTEM INTEGRITY ACROSS HIGH-VOLUME TRAFFIC SPIKES.
+                            </p>
+</div>
+</div>
+<!-- Shahid Ali -->
+<div class="glass-panel group">
+<div class="h-80 overflow-hidden bg-neutral-900 grayscale hover:grayscale-0 transition-all duration-500">
+<img class="w-full h-full object-cover" data-alt="charismatic marketing executive in a modern glass office with city night lights blurred in the background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3TMbthiNqRazKGVzUXkRUbcC9oB5F3DDwwf0YCnsOAAfNPlee72P6hVs8FKym3SYViGysHMiBeY_sz3w48v8jjNsGdC-o2HdOfJmMkw60Y_q3ku782iiVOjTEar9XSzi0FqeOr2FZ1AiOLDuVjSoV4eozrl8bTf9Y-X-b8xY1CS9ce82FYBDlrY-1dBvpXwiTBuybLM-c8MvDk118jALJMBp_LxyJQ2v5yIse5XhI9hV1IYnbExWitJUdj1a3BC1mWaYeHWISYA"/>
+</div>
+<div class="p-8 relative">
+<div class="absolute top-0 right-8 -translate-y-1/2 bg-surface p-2 border border-primary/20 font-label text-[10px] text-primary">
+                                ID: CMO-SA-42
+                            </div>
+<h4 class="text-2xl font-headline font-bold uppercase mb-1">Shahid Ali</h4>
+<div class="font-label text-primary text-xs tracking-widest mb-6 uppercase">Chief Momentum Officer</div>
+<p class="text-neutral-500 text-xs font-label leading-relaxed">
+                                SPECIALIZATION: PSYCHOGRAPHIC MAPPING. CRAFTING NARRATIVES THAT TRIGGER IMMEDIATE REVENUE-GENERATING ACTION.
+                            </p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Contact Section: Initiation Portal -->
+<section class="max-w-5xl mx-auto px-6 py-32">
+<div class="glass-panel p-12 relative overflow-hidden border-2 border-primary/10">
+<div class="absolute top-0 left-0 w-2 h-2 bg-secondary"></div>
+<div class="absolute top-0 right-0 w-2 h-2 bg-secondary"></div>
+<div class="absolute bottom-0 left-0 w-2 h-2 bg-secondary"></div>
+<div class="absolute bottom-0 right-0 w-2 h-2 bg-secondary"></div>
+<div class="mb-12">
+<h2 class="text-4xl font-headline font-bold uppercase tracking-tighter mb-2">AI Audit Intake Interface</h2>
+<p class="font-label text-xs tracking-widest text-neutral-500 uppercase">_Awaiting.input_</p>
+</div>
+<form class="space-y-10">
+<div class="grid md:grid-cols-2 gap-10">
+<div class="relative">
+<label class="block font-label text-[10px] text-secondary tracking-[0.2em] mb-2 uppercase">_Initiate.your.name</label>
+<input class="w-full bg-transparent border-0 border-b border-neutral-800 focus:border-secondary focus:ring-0 font-label text-lg transition-all py-2 placeholder:text-neutral-700" placeholder="NAME_ENTRY..." type="text"/>
+</div>
+<div class="relative">
+<label class="block font-label text-[10px] text-secondary tracking-[0.2em] mb-2 uppercase">_Establish.comms_link</label>
+<input class="w-full bg-transparent border-0 border-b border-neutral-800 focus:border-secondary focus:ring-0 font-label text-lg transition-all py-2 placeholder:text-neutral-700" placeholder="EMAIL_ENCRYPTED..." type="email"/>
+</div>
+</div>
+<div class="relative">
+<label class="block font-label text-[10px] text-secondary tracking-[0.2em] mb-2 uppercase">_Objective.description</label>
+<textarea class="w-full bg-transparent border-0 border-b border-neutral-800 focus:border-secondary focus:ring-0 font-label text-lg transition-all py-2 placeholder:text-neutral-700 resize-none" placeholder="DESCRIBE_GOALS..." rows="4"></textarea>
+</div>
+<div class="flex justify-between items-end">
+<div class="hidden md:block font-label text-[9px] text-neutral-600">
+                            SECURE CHANNEL 256-BIT ENCRYPTION ACTIVE<br/>
+                            HANDSHAKE_ESTABLISHED.V4
+                        </div>
+<button class="relative group px-12 py-4 bg-transparent border border-secondary text-secondary font-headline font-bold uppercase tracking-widest overflow-hidden hover:text-on-secondary transition-colors duration-300">
+<span class="relative z-10">Request a Call</span>
+<div class="absolute inset-0 bg-secondary translate-x-[-101%] group-hover:translate-x-0 transition-transform duration-300"></div>
+<div class="absolute top-0 right-0 w-20 h-full bg-secondary/20 blur-2xl group-hover:opacity-0 transition-opacity"></div>
+</button>
+</div>
+</form>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full border-t border-purple-900/20 bg-[#0e0e0e] flex flex-col md:flex-row justify-between items-center px-12 py-10 gap-8">
+<div class="text-lg font-black text-neutral-200 font-headline uppercase italic">BROGENCE</div>
+<div class="flex flex-wrap justify-center gap-10">
+<a class="font-['Geist_Mono'] text-xs tracking-widest uppercase text-neutral-600 hover:text-cyan-300 transition-all" href="#">Terminal</a>
+<a class="font-['Geist_Mono'] text-xs tracking-widest uppercase text-neutral-600 hover:text-cyan-300 transition-all" href="#">Neural Link</a>
+<a class="font-['Geist_Mono'] text-xs tracking-widest uppercase text-neutral-600 hover:text-cyan-300 transition-all" href="#">Protocol</a>
+<a class="font-['Geist_Mono'] text-xs tracking-widest uppercase text-neutral-600 hover:text-cyan-300 transition-all" href="#">Privacy</a>
+</div>
+<div class="font-['Geist_Mono'] text-[10px] tracking-widest uppercase text-neutral-700">
+            © 2024 BROGENCE TECHNICAL. ALL RIGHTS REDACTED.
+        </div>
+</footer>
+</body></html>

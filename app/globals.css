@@ -1,0 +1,1372 @@
+/* ============================================================
+   BROGENCE — Animations & Keyframes
+   ============================================================ */
+
+/* Status Pulse (cyan breathing dot) */
+@keyframes pulse {
+  0%   { transform: scale(1);   opacity: 1;   }
+  50%  { transform: scale(1.6); opacity: 0.4; }
+  100% { transform: scale(1);   opacity: 1;   }
+}
+
+.status-pulse {
+  width: 8px;
+  height: 8px;
+  background: var(--secondary-container);
+  border-radius: 50%;
+  box-shadow: 0 0 12px var(--secondary-container),
+              0 0 24px rgba(0, 244, 254, 0.3);
+  animation: pulse 2s infinite ease-in-out;
+  flex-shrink: 0;
+}
+
+/* ── Bloom Float (ambient background glow) ── */
+@keyframes bloom-float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25%      { transform: translate(20px, -10px) scale(1.05); }
+  50%      { transform: translate(-10px, 15px) scale(0.95); }
+  75%      { transform: translate(15px, 5px) scale(1.02); }
+}
+
+.bloom-animated {
+  animation: bloom-float 20s infinite ease-in-out;
+}
+
+/* ── Glitch (chromatic aberration transition) ── */
+@keyframes glitch {
+  0%   { text-shadow: 2px 0 #00f4fe, -2px 0 #e0b6ff; }
+  25%  { text-shadow: -2px 0 #00f4fe, 2px 0 #e0b6ff; }
+  50%  { text-shadow: 0 2px #00f4fe, 0 -2px #e0b6ff; }
+  75%  { text-shadow: 1px -1px #00f4fe, -1px 1px #e0b6ff; }
+  100% { text-shadow: none; }
+}
+
+.glitch-hover:hover {
+  animation: glitch 150ms ease-in-out;
+}
+
+/* ── Slide-up stagger (for reveal groups) ── */
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.stagger > * {
+  opacity: 0;
+  animation: slide-up 0.6s ease forwards;
+}
+.stagger > *:nth-child(1) { animation-delay: 0.1s; }
+.stagger > *:nth-child(2) { animation-delay: 0.2s; }
+.stagger > *:nth-child(3) { animation-delay: 0.3s; }
+.stagger > *:nth-child(4) { animation-delay: 0.4s; }
+.stagger > *:nth-child(5) { animation-delay: 0.5s; }
+
+/* ── Neon underline grow ── */
+@keyframes neon-grow {
+  from { width: 0; }
+  to   { width: 6rem; }
+}
+
+.neon-bar {
+  height: 3px;
+  background: var(--primary);
+  box-shadow: 0 0 8px var(--primary), 0 0 16px rgba(224, 182, 255, 0.3);
+  animation: neon-grow 0.8s ease forwards;
+}
+
+/* ── Button fill sweep ── */
+@keyframes fill-sweep {
+  from { transform: translateX(-101%); }
+  to   { transform: translateX(0); }
+}
+
+/* ── Cursor blink (terminal) ── */
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+.cursor-blink::after {
+  content: "█";
+  color: var(--secondary-container);
+  animation: blink 1s step-end infinite;
+  margin-left: 2px;
+}
+
+/* ── Grayscale lift (founder cards) ── */
+.grayscale-lift {
+  filter: grayscale(100%);
+  transition: filter var(--transition-slow) ease;
+}
+
+.grayscale-lift:hover {
+  filter: grayscale(0%);
+}
+
+
+/* ============================================================
+   BROGENCE — Systems Architects (Founders)
+   ============================================================ */
+
+.architects {
+  background: transparent;
+  padding: var(--space-4xl) 0;
+  position: relative;
+}
+
+/* ── Section Header ── */
+.architects__header {
+  margin-bottom: var(--space-3xl);
+}
+
+.architects__heading {
+  font-family: var(--font-headline);
+  font-size: var(--text-h2);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.04em;
+  font-style: italic;
+  color: var(--on-surface);
+}
+
+.architects__bar {
+  width: 6rem;
+  height: 3px;
+  margin-top: var(--space-sm);
+}
+
+/* ── Cards Grid ── */
+.architects__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-lg);
+}
+
+/* ── Individual Card ── */
+.architect-card {
+  background-color: rgba(14, 14, 14, 0.55);
+  /* No backdrop-filter — it kills performance over a live WebGL canvas */
+}
+
+.architect-card--accent {
+  border-left: 4px solid rgba(0, 244, 254, 0.3);
+}
+
+/* ── Photo ── */
+.architect-card__photo {
+  height: 320px;
+  overflow: hidden;
+  background: #171717;
+}
+
+.architect-card__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ── Info ── */
+.architect-card__info {
+  padding: var(--space-lg);
+  position: relative;
+}
+
+/* ── ID Badge ── */
+.architect-card__id {
+  position: absolute;
+  top: 0;
+  right: var(--space-lg);
+  transform: translateY(-50%);
+  background: var(--surface);
+  padding: 0.35rem 0.6rem;
+  font-family: var(--font-label);
+  font-size: 10px;
+  letter-spacing: 0.05em;
+}
+
+.architect-card__id--primary {
+  color: var(--primary);
+  border: 1px solid rgba(224, 182, 255, 0.2);
+}
+
+.architect-card__id--secondary {
+  color: var(--secondary);
+  border: 1px solid rgba(0, 244, 254, 0.2);
+}
+
+/* ── Name ── */
+.architect-card__name {
+  font-family: var(--font-headline);
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+  color: var(--on-surface);
+}
+
+/* ── Role ── */
+.architect-card__role {
+  font-family: var(--font-label);
+  font-size: var(--text-micro);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-md);
+}
+
+.architect-card__role--primary   { color: var(--primary); }
+.architect-card__role--secondary { color: var(--secondary); }
+
+/* ── Spec Text ── */
+.architect-card__spec {
+  font-family: var(--font-label);
+  font-size: var(--text-micro);
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.35);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .architects__grid {
+    grid-template-columns: 1fr;
+    max-width: 480px;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 1024px) {
+  .architects__grid {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: none;
+  }
+}
+
+
+/* ============================================================
+   BROGENCE — Base Reset & Global Styles
+   ============================================================ */
+
+/* ── Reset ── */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--on-background);
+  background-color: var(--surface-lowest);
+  line-height: 1.6;
+  overflow-x: hidden;
+
+  /* Film-grain noise texture */
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-blend-mode: overlay;
+}
+
+/* ── Selection ── */
+::selection {
+  background: var(--primary-container);
+  color: #fff;
+}
+
+/* ── Links ── */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ── Images ── */
+img, video {
+  max-width: 100%;
+  display: block;
+}
+
+/* ── Lists ── */
+ul, ol { list-style: none; }
+
+/* ── Inputs ── */
+input, textarea, button {
+  font: inherit;
+  color: inherit;
+  border: none;
+  outline: none;
+  background: none;
+}
+
+button { cursor: pointer; }
+
+/* ── Section Container ── */
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding-left: var(--space-md);
+  padding-right: var(--space-md);
+}
+
+/* ── Glass Panel Utility ── */
+.glass-panel {
+  /* PERF: No backdrop-filter — blur over a live WebGL canvas recomputes every frame */
+  background: rgba(30, 30, 30, 0.7);
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius);
+}
+
+.glass-panel::before {
+  /* PERF: Removed SVG noise texture — extra compositing layer over WebGL */
+  display: none;
+}
+
+.glass-panel > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Glow Border Utilities ── */
+.glow-top {
+  border-top: 1px solid var(--border-glow);
+}
+
+.glow-left {
+  border-left: 4px solid var(--secondary-fixed);
+}
+
+/* ── Bioluminescent Bloom ── */
+.bloom {
+  background: radial-gradient(
+    circle at center,
+    var(--glow-primary-strong) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+/* ── Typography Helpers ── */
+.font-headline { font-family: var(--font-headline); }
+.font-body     { font-family: var(--font-body); }
+.font-label    { font-family: var(--font-label); }
+
+/* ── Visually Hidden (accessibility) ── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── Spline 3D Container Base ── */
+.spline-container {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.spline-container.interactive {
+  pointer-events: auto;
+}
+
+/* ── Scroll-reveal elements ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity var(--transition-slow) ease, transform var(--transition-slow) ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* ============================================================
+   BROGENCE — AI Audit Contact Form
+   ============================================================ */
+
+.contact {
+  padding: var(--space-4xl) 0;
+  max-width: 64rem;
+  margin: 0 auto;
+}
+
+/* ── Form Panel ── */
+.contact__panel {
+  padding: var(--space-2xl);
+  border: 2px solid rgba(224, 182, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+/* ── Corner Accents ── */
+.contact__corner {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: var(--secondary-container);
+}
+
+.contact__corner--tl { top: 0;    left: 0;   }
+.contact__corner--tr { top: 0;    right: 0;  }
+.contact__corner--bl { bottom: 0; left: 0;   }
+.contact__corner--br { bottom: 0; right: 0;  }
+
+/* ── Header ── */
+.contact__heading {
+  font-family: var(--font-headline);
+  font-size: var(--text-h2);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.04em;
+  margin-bottom: 0.5rem;
+  color: var(--on-surface);
+}
+
+.contact__subtext {
+  font-family: var(--font-label);
+  font-size: var(--text-micro);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.35);
+  margin-bottom: var(--space-2xl);
+}
+
+/* ── Form Grid ── */
+.contact__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+.contact__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-xl);
+}
+
+/* ── Input Groups ── */
+.contact__field {
+  position: relative;
+}
+
+.contact__label {
+  display: block;
+  font-family: var(--font-label);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--secondary-container);
+  margin-bottom: 0.5rem;
+}
+
+.contact__input,
+.contact__textarea {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  font-family: var(--font-label);
+  font-size: 1.1rem;
+  padding: 0.6rem 0;
+  color: var(--on-surface);
+  transition: border-color var(--transition-fast) ease,
+              box-shadow var(--transition-fast) ease;
+}
+
+.contact__input::placeholder,
+.contact__textarea::placeholder {
+  color: rgba(255, 255, 255, 0.15);
+  font-family: var(--font-label);
+}
+
+.contact__input:focus,
+.contact__textarea:focus {
+  border-color: var(--secondary-container);
+  box-shadow: 0 2px 10px rgba(0, 244, 254, 0.15);
+}
+
+.contact__textarea {
+  resize: none;
+  min-height: 5rem;
+}
+
+/* ── Footer Row ── */
+.contact__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: var(--space-lg);
+}
+
+.contact__encrypt-badge {
+  font-family: var(--font-label);
+  font-size: 9px;
+  color: rgba(255, 255, 255, 0.2);
+  line-height: 1.6;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ── Ghost CTA Button ── */
+.contact__submit {
+  position: relative;
+  padding: 1rem 3rem;
+  background: transparent;
+  border: 1px solid var(--secondary);
+  color: var(--secondary);
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  overflow: hidden;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: color var(--transition-normal) ease;
+}
+
+.contact__submit-text {
+  position: relative;
+  z-index: 2;
+}
+
+.contact__submit-fill {
+  position: absolute;
+  inset: 0;
+  background: var(--secondary);
+  transform: translateX(-101%);
+  transition: transform var(--transition-normal) ease;
+  z-index: 1;
+}
+
+.contact__submit-glow {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 5rem;
+  height: 100%;
+  background: rgba(0, 244, 254, 0.2);
+  filter: blur(24px);
+  transition: opacity var(--transition-normal) ease;
+  z-index: 0;
+}
+
+.contact__submit:hover {
+  color: var(--on-secondary);
+}
+
+.contact__submit:hover .contact__submit-fill {
+  transform: translateX(0);
+}
+
+.contact__submit:hover .contact__submit-glow {
+  opacity: 0;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .contact {
+    padding-left: var(--space-md);
+    padding-right: var(--space-md);
+  }
+
+  .contact__row {
+    grid-template-columns: 1fr;
+  }
+
+  .contact__footer {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-md);
+  }
+
+  .contact__encrypt-badge {
+    order: 2;
+    text-align: center;
+  }
+
+  .contact__submit {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+
+/* ============================================================
+   BROGENCE — Footer
+   ============================================================ */
+
+.footer {
+  width: 100%;
+  background: var(--surface-lowest);
+  border-top: 1px solid rgba(128, 0, 255, 0.12);
+  padding: var(--space-xl) var(--space-2xl);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-lg);
+}
+
+/* ── Logo ── */
+.footer__logo {
+  font-family: var(--font-headline);
+  font-size: 1.1rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  font-style: italic;
+  color: var(--on-surface);
+  letter-spacing: -0.02em;
+}
+
+/* ── Links ── */
+.footer__links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-xl);
+}
+
+.footer__link {
+  font-family: var(--font-label);
+  font-size: var(--text-micro);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.25);
+  transition: color var(--transition-instant) ease;
+}
+
+.footer__link:hover {
+  color: var(--secondary-container);
+}
+
+/* ── Copyright ── */
+.footer__copy {
+  font-family: var(--font-label);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.15);
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .footer {
+    flex-direction: column;
+    text-align: center;
+    padding: var(--space-xl) var(--space-md);
+  }
+}
+
+
+/* ============================================================
+   BROGENCE — Hero Section
+   ============================================================ */
+
+.hero {
+  position: relative;
+  padding-top: calc(var(--nav-height) + var(--space-3xl));
+  padding-bottom: var(--space-4xl);
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+/* ── Background Bloom Orbs ── */
+.hero__bloom--right {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 800px;
+  height: 800px;
+  transform: translate(25%, -50%);
+  z-index: 0;
+}
+
+.hero__bloom--left {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 600px;
+  height: 600px;
+  transform: translate(-25%, 25%);
+  opacity: 0.5;
+  z-index: 0;
+}
+
+/* ── Spline Background Container ── */
+/* Styles moved to css/spline.css */
+
+
+/* ── Spline Hero Container ── */
+/* Positioned within the hero for a foreground 3D interactive model */
+#spline-hero-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+  /* Spline canvas will be injected here */
+}
+
+/* ── Content ── */
+.hero__content {
+  position: relative;
+  z-index: 3;
+  width: 75%;
+}
+
+/* ── Status Line ── */
+.hero__status {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-lg);
+}
+
+.hero__status-text {
+  font-family: var(--font-label);
+  font-size: var(--text-micro);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--secondary);
+}
+
+/* ── Main Headline ── */
+.hero__headline {
+  font-family: var(--font-headline);
+  font-size: var(--text-display);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 0.9;
+  text-transform: uppercase;
+  margin-bottom: var(--space-2xl);
+  color: var(--on-surface);
+}
+
+.hero__headline em {
+  font-style: italic;
+  color: var(--primary);
+}
+
+/* ── CTA Row ── */
+.hero__cta-row {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: var(--space-lg);
+  flex-wrap: wrap;
+}
+
+/* ── Primary CTA Button ── */
+.hero__cta {
+  position: relative;
+  padding: 1.25rem 2.5rem;
+  background: var(--primary);
+  color: var(--on-primary);
+  font-family: var(--font-headline);
+  font-weight: 900;
+  font-size: 1.15rem;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: transform var(--transition-instant) ease;
+  z-index: 1;
+}
+
+.hero__cta::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(100%);
+  transition: transform var(--transition-normal) ease;
+  z-index: -1;
+}
+
+.hero__cta:hover::before {
+  transform: translateY(0);
+}
+
+.hero__cta::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  background: var(--primary);
+  filter: blur(20px);
+  opacity: 0.2;
+  z-index: -2;
+  transition: opacity var(--transition-normal) ease;
+}
+
+.hero__cta:hover::after {
+  opacity: 0.4;
+}
+
+.hero__cta:active {
+  transform: scale(0.96);
+}
+
+/* ── Tech Metadata ── */
+.hero__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-family: var(--font-label);
+  font-size: var(--text-micro);
+  letter-spacing: 0.15em;
+  color: rgba(255, 255, 255, 0.3);
+  max-width: 200px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .hero__content {
+    width: 100%;
+  }
+
+  #spline-hero-container {
+    width: 100%;
+    height: 50%;
+    top: auto;
+    bottom: 0;
+    opacity: 0.4;
+  }
+
+  .hero__headline {
+    font-size: clamp(2.8rem, 10vw, 4rem);
+  }
+
+  .hero__cta-row {
+    flex-direction: column;
+  }
+}
+
+
+/* ============================================================
+   BROGENCE — Navigation Bar
+   ============================================================ */
+
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-sm) var(--space-md);
+  height: var(--nav-height);
+
+  /* PERF: Solid bg instead of backdrop-filter blur */
+  background: rgba(14, 14, 14, 0.95);
+  border-bottom: 1px solid rgba(128, 0, 255, 0.1);
+  box-shadow: 0 -10px 40px var(--glow-primary);
+  transition: background var(--transition-normal) ease,
+              box-shadow var(--transition-normal) ease;
+}
+
+.nav.scrolled {
+  background: rgba(14, 14, 14, 0.95);
+  box-shadow: 0 0 60px var(--glow-primary);
+}
+
+/* ── Logo ── */
+.nav__logo {
+  font-family: var(--font-headline);
+  font-size: 1.5rem;
+  font-weight: 900;
+  font-style: italic;
+  letter-spacing: -0.04em;
+  color: var(--primary);
+  white-space: nowrap;
+}
+
+/* ── Links ── */
+.nav__links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+}
+
+.nav__link {
+  font-family: var(--font-label);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.35);
+  transition: color var(--transition-instant) ease;
+  padding-bottom: 2px;
+}
+
+.nav__link:hover {
+  color: var(--secondary-container);
+}
+
+.nav__link--active {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: -0.02em;
+  color: var(--primary);
+  border-bottom: 2px solid var(--primary);
+}
+
+/* ── CTA Button ── */
+.nav__cta {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  padding: 0.6rem 1.5rem;
+  background: var(--primary-container);
+  color: var(--on-primary-container);
+  border-radius: var(--radius);
+  transition: background var(--transition-instant) ease,
+              transform var(--transition-instant) ease;
+}
+
+.nav__cta:hover {
+  background: var(--primary);
+  color: var(--on-primary);
+}
+
+.nav__cta:active {
+  transform: scale(0.95);
+}
+
+/* ── Mobile hamburger ── */
+.nav__hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.nav__hamburger span {
+  width: 24px;
+  height: 2px;
+  background: var(--primary);
+  transition: transform var(--transition-fast) ease;
+}
+
+/* ── Mobile drawer ── */
+.nav__mobile-drawer {
+  display: none;
+  position: fixed;
+  top: var(--nav-height);
+  left: 0;
+  width: 100%;
+  background: rgba(14, 14, 14, 0.98);
+  padding: var(--space-lg) var(--space-md);
+  flex-direction: column;
+  gap: var(--space-md);
+  z-index: 99;
+  border-bottom: 1px solid rgba(128, 0, 255, 0.1);
+}
+
+.nav__mobile-drawer.open {
+  display: flex;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .nav__links {
+    display: none;
+  }
+  .nav__hamburger {
+    display: flex;
+  }
+}
+
+
+/* ============================================================
+   BROGENCE — Services / Protocol Section
+   ============================================================ */
+
+.services {
+  padding: var(--space-3xl) 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* ── Bento Grid ── */
+.services__grid {
+  display: flex;
+  flex-direction: row;
+  gap: var(--space-lg);
+  align-items: stretch;
+}
+
+/* ── Large Dominant Panel (Protocol 01) ── */
+.services__main {
+  flex: 3;
+  min-height: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: var(--space-2xl);
+}
+
+/* ── Right Column (Protocol 02 + 03) ── */
+.services__side {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.services__side-panel {
+  flex: 1;
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* ── Protocol Label ── */
+.services__protocol {
+  font-family: var(--font-label);
+  font-size: var(--text-label);
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  color: var(--secondary);
+  margin-bottom: var(--space-sm);
+}
+
+.services__side-panel .services__protocol {
+  font-size: var(--text-micro);
+  letter-spacing: 0.4em;
+}
+
+/* ── Headings ── */
+.services__title {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: var(--text-h2);
+  text-transform: uppercase;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  margin-bottom: var(--space-lg);
+  color: var(--on-surface);
+}
+
+.services__side-panel .services__title {
+  font-size: var(--text-h3);
+  letter-spacing: -0.02em;
+  margin-bottom: var(--space-sm);
+}
+
+/* ── Body Text ── */
+.services__body {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.45);
+  max-width: 28rem;
+}
+
+.services__side-panel .services__body {
+  font-size: 0.85rem;
+}
+
+/* ── Schematic Image Well ── */
+.services__schematic {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  margin-top: var(--space-2xl);
+  background: var(--surface-lowest);
+  overflow: hidden;
+}
+
+.services__schematic img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.4;
+}
+
+.services__schematic-label {
+  position: absolute;
+  bottom: var(--space-sm);
+  left: var(--space-sm);
+  font-family: var(--font-label);
+  font-size: 10px;
+  color: rgba(224, 182, 255, 0.5);
+}
+
+/* ── Icon (Material Symbols) ── */
+.services__icon {
+  margin-top: var(--space-lg);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.services__icon .material-symbols-outlined {
+  font-size: 2.25rem;
+}
+
+.services__icon--primary .material-symbols-outlined {
+  color: var(--primary);
+}
+
+.services__icon--secondary .material-symbols-outlined {
+  color: var(--secondary);
+}
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .services__grid {
+    flex-direction: column;
+  }
+
+  .services__main {
+    min-height: auto;
+  }
+}
+
+
+/* ============================================================
+   BROGENCE — Spline 3D Integration
+   Robot background with cursor tracking + scroll-driven rotation
+   ============================================================ */
+
+/* ── Full-page fixed background ── */
+#spline-bg-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+#spline-bg-container.loaded {
+  opacity: 1;
+}
+
+.spline-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  /* Push robot to the right half of the viewport — GPU-accelerated, zero cost */
+  transform: translateX(30vw);
+}
+
+@media (max-width: 1024px) {
+  .spline-canvas {
+    transform: translateX(10vw);
+  }
+}
+
+@media (max-width: 768px) {
+  .spline-canvas {
+    transform: translateX(0);
+  }
+}
+
+
+/* ── WATERMARK REMOVAL ── */
+spline-viewer::part(logo) {
+  display: none !important;
+}
+
+spline-viewer {
+  --spline-viewer-logo-display: none;
+}
+
+/* ── Loading fallback ── */
+#spline-fallback {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  background: var(--surface-lowest, #0e0e0e);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Pulsing loading indicator */
+#spline-fallback::after {
+  content: '';
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    var(--primary, #e0b6ff) 0%,
+    transparent 70%
+  );
+  animation: spline-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes spline-pulse {
+  0%, 100% { transform: scale(0.8); opacity: 0.3; }
+  50%      { transform: scale(1.2); opacity: 0.7; }
+}
+
+/* ── Content sits above the 3D scene ── */
+main,
+.footer,
+.nav__mobile-drawer {
+  position: relative;
+  z-index: 2;
+  pointer-events: all;
+}
+
+/* ── Prevent Spline from blocking scroll ── */
+body {
+  overflow: auto !important;
+}
+
+/* ── Mobile: skip Spline entirely ── */
+@media (max-width: 768px) {
+  #spline-bg-container {
+    display: none !important;
+  }
+
+  #spline-fallback {
+    background: var(--surface-lowest, #0e0e0e);
+  }
+
+  #spline-fallback::after {
+    display: none;
+  }
+}
+
+
+/* ============================================================
+   BROGENCE — Design Tokens
+   "Bioluminescent Brutalism" System
+   ============================================================ */
+
+:root {
+  /* ── Core Palette ── */
+  --bg:                     #141313;
+  --surface:                #141313;
+  --surface-lowest:         #0e0e0e;
+  --surface-low:            #1c1b1b;
+  --surface-container:      #201f1f;
+  --surface-high:           #2a2a2a;
+  --surface-highest:        #353434;
+  --surface-bright:         #3a3939;
+  --surface-variant:        #353434;
+
+  /* ── Primary: Bioluminescent Violet ── */
+  --primary:                #e0b6ff;
+  --primary-container:      #7824b8;
+  --primary-fixed:          #f2daff;
+  --primary-fixed-dim:      #e0b6ff;
+  --on-primary:             #4c007d;
+  --on-primary-container:   #e1b8ff;
+  --on-primary-fixed:       #2e004e;
+  --inverse-primary:        #8433c4;
+
+  /* ── Secondary: Tactical Cyan ── */
+  --secondary:              #e6feff;
+  --secondary-container:    #00f4fe;
+  --secondary-fixed:        #63f7ff;
+  --secondary-fixed-dim:    #00dce5;
+  --on-secondary:           #003739;
+  --on-secondary-container: #006c71;
+
+  /* ── Tertiary ── */
+  --tertiary:               #dabcea;
+  --tertiary-container:     #634a72;
+  --on-tertiary:            #3e274c;
+
+  /* ── Neutral / Surface Text ── */
+  --on-surface:             #e5e2e1;
+  --on-surface-variant:     #cbc3d9;
+  --on-background:          #e5e2e1;
+  --inverse-surface:        #e5e2e1;
+  --inverse-on-surface:     #313030;
+
+  /* ── Outline ── */
+  --outline:                #948da2;
+  --outline-variant:        #494456;
+
+  /* ── Error ── */
+  --error:                  #ffb4ab;
+  --error-container:        #93000a;
+  --on-error:               #690005;
+  --on-error-container:     #ffdad6;
+
+  /* ── Elevation / Glow Shadows ── */
+  --glow-primary:           rgba(120, 36, 184, 0.05);
+  --glow-primary-strong:    rgba(120, 36, 184, 0.15);
+  --glow-secondary:         rgba(0, 244, 254, 0.08);
+  --border-glow:            rgba(224, 182, 255, 0.3);
+  --border-ghost:           rgba(73, 68, 86, 0.15);
+
+  /* ── Typography ── */
+  --font-headline:          'Space Grotesk', sans-serif;
+  --font-body:              'Inter', sans-serif;
+  --font-label:             'Geist Mono', monospace;
+
+  /* ── Display Sizes ── */
+  --text-display:           clamp(3.5rem, 8vw, 7rem);
+  --text-h1:                clamp(2.5rem, 5vw, 5rem);
+  --text-h2:                clamp(2rem, 4vw, 3.5rem);
+  --text-h3:                clamp(1.25rem, 2vw, 1.75rem);
+  --text-body:              1rem;
+  --text-label:             0.75rem;
+  --text-micro:             0.625rem;
+
+  /* ── Spacing ── */
+  --space-xs:               0.5rem;
+  --space-sm:               1rem;
+  --space-md:               1.5rem;
+  --space-lg:               2rem;
+  --space-xl:               3rem;
+  --space-2xl:              4rem;
+  --space-3xl:              6rem;
+  --space-4xl:              8rem;
+
+  /* ── Border Radius (BRUTALIST = 0) ── */
+  --radius:                 0px;
+
+  /* ── Transitions ── */
+  --transition-instant:     50ms;
+  --transition-fast:        150ms;
+  --transition-normal:      300ms;
+  --transition-slow:        500ms;
+
+  /* ── Layout ── */
+  --max-width:              80rem;   /* 1280px */
+  --nav-height:             4.5rem;
+}
